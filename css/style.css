@@ -1,0 +1,48 @@
+.box{
+    background: rgba(255, 255, 255, 0.2); /* transparan */
+     backdrop-filter: blur(15px);          /* blur utama */
+    -webkit-backdrop-filter: blur(15px);  /* support browser */
+
+    padding: 30px;
+    width: 500px;
+    border-radius: 15px;
+
+    color: #000;
+    text-align: center;
+
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 2;
+
+}
+
+.hero{
+    height: 100vh;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* gelapin dikit */
+    top: 0;
+    left: 0;
+}
+
+body{
+    background-image: url('../assets/img/bgkursi.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.custom-btn {
+    background: rgba(255, 255, 255, 0.35);
+    color: #000;
+    backdrop-filter: blur(5px);
+    border: none;
+}
+
+.custom-btn:hover {
+    background-color: #023e8a;
+}
