@@ -1,3 +1,8 @@
+body{
+    margin: 0;
+    overflow-x: hidden;
+}
+
 .box{
     background: rgba(255, 255, 255, 0.2); /* transparan */
      backdrop-filter: blur(15px);          /* blur utama */
@@ -19,6 +24,34 @@
 .hero{
     height: 100vh;
     position: relative;
+    overflow: hidden;
+}
+
+.hero-atas::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image: url('../assets/img/bgindexatas.jpg');
+    background-size: cover;
+    background-position: center;
+
+    filter: blur(5px);
+    transform: scale(1.1); /* biar gak kepotong */
+    z-index: 0;
+}
+
+.hero-atas::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4); /* 🔥 ini yang bikin gelap */
+    z-index: 1;
+}
+
+.hero-atas > * {
+    position: relative;
+    z-index: 2;
 }
 
 .overlay {
@@ -30,8 +63,8 @@
     left: 0;
 }
 
-body{
-    background-image: url('../assets/img/bgkursi.jpg');
+#halaman-awal{
+    background-image: url('../assets/img/bgawal.webp');
     background-size: cover;
     background-position: center;
 }
@@ -44,5 +77,21 @@ body{
 }
 
 .custom-btn:hover {
-    background-color: #023e8a;
+    background-color: #15ff00;
+}
+
+.judul h3{
+    width: 100%;
+    text-align: center;
+    margin-top: 140px;
+    color: yellow;
+}
+
+.judul h1{
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 100px;
+    color: white;
 }
