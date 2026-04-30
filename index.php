@@ -18,14 +18,17 @@
 
                 <div id="navmenu">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">home</a>
+                        <li class="nav-item me-3">
+                            <a href="index.php" class="nav-link"><b>home</b></a>
                         </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">kategori</a>
+                        <li class="nav-item me-3">
+                            <a href="peta.php" class="nav-link"><b>Peta & Wahana</b></a>
                         </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">about us</a>
+                        <li class="nav-item me-3">
+                            <a href="" class="nav-link"><b>Pemesanan tiket</b></a>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a href="" class="nav-link"><b>About Us</b></a>
                         </li>
                     </ul>
                 </div>
@@ -38,79 +41,63 @@
         </div>
     </section>
 
-    <section class="kotak">
-            <div class="kotak-preview1">
-                <h1 id="pembelian"><b>Pembelian</b></h1>
-                <p>Tiket Gembira Loka Zoo</p>
-                <a href="tiket.php" class="btn btn-outline-dark mb-3" style="font-size: 20px;">
-                    Beli Tiket
-                </a>
-            </div>
+    
 
-            <div class="kotak-preview2">
-                <h1 id="peta"><strong>Peta</strong></h1>
-                <p>Gembira Loka Zoo</p>
-                <a href="index.php" class="btn btn-outline-dark" style="font-size: 20px;">
-                    Lihat Peta
-                </a>
-            </div>
-            
-            <div class="kotak-preview3">
-                <h1 id="kategori">kategori</h1>
-                <p>Tiket Gembira Loka Zoo</p>
-                <a href="index.php" class="btn btn-outline-dark" style="font-size: 20px;">
-                    Cek Kategori
-                </a>
-            </div>
-    </section>
-
-
-    <section id="wahana">
+    <section id="kategori-tiket">
         <div class="container">
-            <div id="judul">
-                <p><strong id="besar">WAHANA</strong> GEMBIRA LOKA ZOO</p>
+            <div id="judul-tiket" class="mt-5">
+                <h3>HARGA TIKET DAN PAKET   </h3>
             </div>
 
-            <div class="row pt-5 text-center">
+            <div class="row pt-5 text-center mb-5">
                 <div class="col">
                     <div class="card" style="width: 15rem;">
-                        <img src="assets/img/interaksigajah1.jpg" class="card-img-top" alt="...">
+                    <img src="assets/img/1tiket.png" alt="">
                         <div class="card-body">
-                            <p class="card-text">Interaksi Gajah Sumatra</p>
+                            <p class="card-text">SENIN-JUMAT</p>
+                            <p class="card-price">Rp 70.000</p>
+                        </div>        
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card" style="width: 15rem">
+                    <img src="assets/img/1tiket.png" alt="">
+                        <div class="card-body">
+                            <p class="card-text">SABTU-MINGGU</p>
+                            <p class="card-price">Rp 85.000</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
-                    <div class="card" style="width: 15rem;">
-                        <img src="assets/img/pettingzoo.jpg" class="card-img-top" alt="...">
+                    <div class="card" style="width: 15rem">
+                    <img src="assets/img/2tiket.png" alt="">
                         <div class="card-body">
-                            <p class="card-text">Petting Zoo</p>
+                            <p class="card-text">PAKET COUPLE</p>
+                            <p class="card-price">Rp 150.000</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
-                    <div class="card" style="width: 15rem;">
-                        <img src="assets/img/terapiikan.jpg" class="card-img-top" alt="...">
+                    <div class="card" style="width: 16rem">
+                    <img src="assets/img/tiketrame.jpg" alt="">
                         <div class="card-body">
-                            <p class="card-text">Terapi Ikan</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col">
-                    <div class="card" style="width: 15rem;">
-                        <img src="assets/img/atv.jpeg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">ATV</p>
+                            <p class="card-text">PAKET RAME-RAME(5 orang)</p>
+                            <p class="card-price">Rp 300.000</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="btn-wrapper">
+            <a href="form.php" class="btn btn-tiket mt-3 px-4">Pesan Tiketmu Sekarang</a>
+        </div>
     </section>
 
+    
 </body>
 
 <footer class="footer">
@@ -129,5 +116,4 @@
 
   </div>
 </footer>
-
 </html>
