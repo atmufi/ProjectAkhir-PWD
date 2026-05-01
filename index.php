@@ -22,13 +22,6 @@
 
         <link href="css/templatemo-tiya-golf-club.css" rel="stylesheet">
         
-<!--
-
-TemplateMo 587 Tiya Golf Club
-
-https://templatemo.com/tm-587-tiya-golf-club
-
--->
     </head>
     
     <body>
@@ -193,7 +186,6 @@ https://templatemo.com/tm-587-tiya-golf-club
   <div class="container">
     <div class="row">
 
-      <!-- JUDUL -->
       <div class="col-12 text-center">
         <h2 class="mb-lg-5 mb-4">ALAMAT</h2>
       </div>
