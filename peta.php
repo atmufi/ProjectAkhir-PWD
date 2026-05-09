@@ -23,17 +23,38 @@ session_start();
                 <div id="navmenu">
                     <ul class="navbar-nav">
                         <li class="nav-item me-3">
-                            <a href="index.php" class="nav-link"><b>home</b></a>
+                            <a href="index.php" class="nav-link"><b>Home</b></a>
                         </li>
                         <li class="nav-item me-3">
                             <a href="peta.php" class="nav-link"><b>Peta & Wahana</b></a>
                         </li>
                         <li class="nav-item me-3">
-                            <a href="" class="nav-link"><b>Pemesanan tiket</b></a>
+                            <a href="form.php" class="nav-link"><b>Pemesanan Tiket</b></a>
                         </li>
+                        <?php if(isset($_SESSION['status']) && $_SESSION['status']=='login') { ?>
+
                         <li class="nav-item me-3">
-                            <a href="" class="nav-link"><b>About Us</b></a>
+                            <span class="nav-link">
+                                Welcome,
+                                <b><?php echo $_SESSION['username']; ?></b> 🐾
+                            </span>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="logout.php" class="btn btn-danger btn-sm">
+                                Logout
+                            </a>
+                        </li>
+
+                    <?php } else { ?>
+
+                        <li class="nav-item me-3">
+                            <a href="login.php" class="nav-link">
+                                <b>Login</b>
+                            </a>
+                        </li>
+
+                    <?php } ?>
                     </ul>
                 </div>
             </div>
