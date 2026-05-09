@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,39 +13,78 @@
 </head>
 <body>
     <section class="hero hero-atas">
-        <nav class="navbar navbar-expand bg-light py-3">
-            <div class="container">
-                <a href="#" class="navbar-brand">
-                    <img src="assets/img/logonobg.png" alt="logo">    
-                    Gembira Loka Zoo
-                </a>
+    <nav class="navbar navbar-expand bg-light py-3">
+        <div class="container">
 
-                <div id="navmenu">
-                    <ul class="navbar-nav">
+            <a href="#" class="navbar-brand">
+                <img src="assets/img/logonobg.png" alt="logo">    
+                Gembira Loka Zoo
+            </a>
+
+            <div id="navmenu">
+                <ul class="navbar-nav align-items-center">
+
+                    <li class="nav-item me-3">
+                        <a href="index.php" class="nav-link">
+                            <b>Home</b>
+                        </a>
+                    </li>
+
+                    <li class="nav-item me-3">
+                        <a href="<?php 
+                        echo (isset($_SESSION['status']) && $_SESSION['status']=='login') 
+                        ? 'peta.php' 
+                        : 'login.php'; 
+                        ?>" class="nav-link">
+                            <b>Peta & Wahana</b>
+                        </a>
+                    </li>
+
+                    <li class="nav-item me-3">
+                        <a href="<?php 
+                        echo (isset($_SESSION['status']) && $_SESSION['status']=='login') 
+                        ? 'form.php' 
+                        : 'login.php'; 
+                        ?>" class="nav-link">
+                            <b>Pemesanan Tiket</b>
+                        </a>
+                    </li>
+
+                    <?php if(isset($_SESSION['status']) && $_SESSION['status']=='login') { ?>
+
                         <li class="nav-item me-3">
-                            <a href="index.php" class="nav-link"><b>home</b></a>
+                            <span class="nav-link">
+                                Welcome,
+                                <b><?php echo $_SESSION['username']; ?></b> 🐾
+                            </span>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="logout.php" class="btn btn-danger btn-sm">
+                                Logout
+                            </a>
+                        </li>
+
+                    <?php } else { ?>
+
                         <li class="nav-item me-3">
-                            <a href="peta.php" class="nav-link"><b>Peta & Wahana</b></a>
+                            <a href="login.php" class="nav-link">
+                                <b>Login</b>
+                            </a>
                         </li>
-                        <li class="nav-item me-3">
-                            <a href="" class="nav-link"><b>Pemesanan tiket</b></a>
-                        </li>
-                        <li class="nav-item me-3">
-                            <a href="" class="nav-link"><b>About Us</b></a>
-                        </li>
-                    </ul>
-                </div>
+
+                    <?php } ?>
+
+                </ul>
             </div>
-        </nav>
-        
-        <div class="judul">
-            <h3>Selamat Datang di</h3>
-            <h1><b>GEMBIRA LOKA <br>ZOO</b></h1>
         </div>
-    </section>
+    </nav>
 
-    
+    <div class="judul">
+        <h3>Selamat Datang di</h3>
+        <h1><b>GEMBIRA LOKA <br>ZOO</b></h1>
+    </div>
+</section>
 
     <section id="kategori-tiket">
         <div class="container">
@@ -92,11 +135,102 @@
             </div>
         </div>
 
+        <?php if(isset($_SESSION['status'])) { ?>
         <div class="btn-wrapper">
             <a href="form.php" class="btn btn-tiket mt-3 px-4">Pesan Tiketmu Sekarang</a>
         </div>
+        <?php } else { ?>
+        <div class="btn-wrapper">
+            <a href="login.php" class="btn btn-tiket mt-3 px-4">Pesan Tiketmu Sekarang</a>
+        </div>
+        <?php } ?>
+
     </section>
 
+   <section class="rating py-5 bg-light">
+    <div class="container">
+
+        <h2 class="text-center mb-4">
+            Rating Pengunjung
+        </h2>
+
+        <div class="card shadow-sm p-3">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-success">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama</th>
+                            <th>Rating</th>
+                            <th>Komentar</th>
+                            <th>Tanggal</th>
+
+                            <?php if(isset($_SESSION['status'])) { ?>
+                                <th>Aksi</th>
+                            <?php } ?>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php 
+                        include 'koneksi.php';
+                        $query = mysqli_query($konek, "SELECT * FROM rating");
+
+                        while($data = mysqli_fetch_array($query)) { 
+                        ?>
+                            <tr>
+                                <td><?php echo $data['id_rating']; ?></td>
+
+                                <td><?php echo $data['nama_user']; ?></td>
+
+                                <td>
+                                    ⭐ <?php echo $data['rating']; ?>/5
+                                </td>
+
+                                <td style="max-width: 300px;">
+                                    <?php echo $data['komentar']; ?>
+                                </td>
+
+                                <td>
+                                    <?php echo $data['tanggal']; ?>
+                                </td>
+
+                                <?php if(isset($_SESSION['status'])) { ?>
+                                <td>
+
+                                    <a href="edit_data.php?id_rating=<?php echo $data['id_rating']; ?>" 
+                                    class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
+
+                                    <a href="hapus_data.php?id=<?php echo $data['id_rating']; ?>"
+                                    onclick="return confirm('Yakin ingin menghapus data ini?')" 
+                                    class="btn btn-danger btn-sm">
+                                        Hapus
+                                    </a>
+
+                                </td>
+                                <?php } ?>
+
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <?php if(isset($_SESSION['status'])) { ?>
+            <div class="text-end mt-3">
+                <a href="tambah_data.php" class="btn btn-success">
+                    + Tambah Data
+                </a>
+            </div>
+            <?php } ?>
+
+        </div>
+    </div>
+</section>
     
 </body>
 
