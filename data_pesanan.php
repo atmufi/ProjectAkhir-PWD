@@ -2,51 +2,76 @@
 session_start();
 include 'koneksi.php';
 
-if(!isset($_SESSION['status']) || $_SESSION['status'] != 'login'){
+// hanya admin
+if(
+    !isset($_SESSION['status']) ||
+    $_SESSION['role'] != 'admin'
+){
     header("location:login.php");
-    exit;
+    exit();
 }
 
-$query = mysqli_query($konek, 
-"SELECT * FROM pesanan");
+$query = mysqli_query($konek,
+"SELECT * FROM pesanan ORDER BY id_pesanan DESC");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
     <title>Data Pemesanan Tiket</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body{
-            background-color: #f5f7f8;
+            background: #f5f5f5;
         }
 
-        .judul{
-            text-align: center;
-            margin-top: 40px;
+        .header-page{
+            background: linear-gradient(to right,
+            #198754, #20c997);
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
             margin-bottom: 30px;
         }
 
-        .card-table{
+        .ticket-card{
+            border: none;
             border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             overflow: hidden;
+            transition: 0.3s;
         }
 
-        .table th{
-            background-color: #198754;
-            color: white;
+        .ticket-card:hover{
+            transform: translateY(-5px);
         }
 
-        .badge-tiket{
-            background-color: #198754;
-            padding: 8px 12px;
-            border-radius: 8px;
+        .ticket-header{
+            background: #198754;
             color: white;
+            padding: 15px;
+        }
+
+        .badge-ticket{
+            background: #198754;
+            color: white;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .info{
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .btn-home{
+            border-radius: 12px;
         }
     </style>
 </head>
@@ -54,89 +79,161 @@ $query = mysqli_query($konek,
 
 <div class="container py-5">
 
-    <div class="judul">
-        <h1><b>Data Pemesanan Tiket</b></h1>
-        <p>Daftar pemesanan pengunjung Gembira Loka Zoo 🐾</p>
+    <!-- HEADER -->
+    <div class="header-page shadow">
+        <h1 class="fw-bold">
+            🎫 Data Pemesanan Tiket
+        </h1>
+
+        <p class="mb-0">
+            Daftar tiket pengunjung
+            Gembira Loka Zoo
+        </p>
     </div>
 
-    <div class="card card-table p-4">
+    <!-- BUTTON -->
+    <div class="mb-4 d-flex justify-content-between">
 
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered align-middle text-center">
+        <a href="admin.php"
+        class="btn btn-outline-success btn-home">
+            ← Kembali ke Admin
+        </a>
 
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>No HP</th>
-                        <th>Jenis Tiket</th>
-                        <th>Jumlah</th>
-                        <th>Tanggal</th>
-                        <th>Pembayaran</th>
-                        <th>Catatan</th>
-                    </tr>
-                </thead>
+        <a href="index.php"
+        class="btn btn-secondary btn-home">
+            🏠 Home
+        </a>
 
-                <tbody>
+    </div>
 
-                <?php while($data = mysqli_fetch_array($query)) { ?>
+    <div class="row">
 
-                    <tr>
-                        <td>
-                            <?php echo $data['id_pesanan']; ?>
-                        </td>
+    <?php while($data =
+    mysqli_fetch_array($query)) { ?>
 
-                        <td>
-                            <?php echo $data['nama_pemesan']; ?>
-                        </td>
+        <div class="col-md-6 col-lg-4 mb-4">
 
-                        <td>
-                            <?php echo $data['email']; ?>
-                        </td>
+            <div class="card shadow ticket-card">
 
-                        <td>
-                            <?php echo $data['no_hp']; ?>
-                        </td>
+                <!-- HEADER CARD -->
+                <div class="ticket-header">
+                    <h5 class="mb-0">
+                        🎟 Pesanan
+                        #<?php echo $data['id_pesanan']; ?>
+                    </h5>
+                </div>
 
-                        <td>
-                            <span class="badge-tiket">
-                                <?php echo $data['jenis_tiket']; ?>
-                            </span>
-                        </td>
+                <!-- BODY -->
+                <div class="card-body">
 
-                        <td>
-                            <?php echo $data['jumlah_tiket']; ?>
-                        </td>
+                    <h4 class="fw-bold">
+                        <?php echo $data['nama_pemesan']; ?>
+                    </h4>
 
-                        <td>
+                    <p class="info">
+                        📧 <?php echo $data['email']; ?>
+                    </p>
+
+                    <p class="info">
+                        📱 <?php echo $data['no_hp']; ?>
+                    </p>
+
+                    <p>
+                        <span class="badge-ticket">
+                            <?php echo $data['jenis_tiket']; ?>
+                        </span>
+                    </p>
+
+                    <p class="info">
+                        🎫 Jumlah Tiket:
+                        <b><?php echo $data['jumlah_tiket']; ?></b>
+                    </p>
+
+                    <p class="info">
+                        📅 Tanggal Kunjungan:
+                        <b>
                             <?php echo $data['tanggal_kunjungan']; ?>
-                        </td>
+                        </b>
+                    </p>
 
-                        <td>
+                    <p class="info">
+                        💳 Pembayaran:
+                        <b>
                             <?php echo $data['metode_pembayaran']; ?>
-                        </td>
+                        </b>
+                    </p>
 
-                        <td>
-                            <?php echo $data['catatan']; ?>
-                        </td>
-                    </tr>
+                    <!-- STATUS -->
+                    <p class="info">
+                        📌 Status:
+                        
+                        <?php
+                        if($data['status_pesanan']
+                        == 'Menunggu Konfirmasi'){
+                        ?>
 
-                <?php } ?>
+                            <span class="badge bg-warning text-dark">
+                                Menunggu Konfirmasi
+                            </span>
 
-                </tbody>
-            </table>
+                        <?php
+                        } elseif(
+                        $data['status_pesanan']
+                        == 'Dikonfirmasi'){
+                        ?>
+
+                            <span class="badge bg-success">
+                                Dikonfirmasi
+                            </span>
+
+                        <?php } else { ?>
+
+                            <span class="badge bg-danger">
+                                Dibatalkan
+                            </span>
+
+                        <?php } ?>
+                    </p>
+
+                    <?php if(!empty($data['catatan'])) { ?>
+
+                    <div class="alert alert-light mt-3">
+                        📝 <?php echo $data['catatan']; ?>
+                    </div>
+
+                    <?php } ?>
+
+                    <!-- AKSI ADMIN -->
+                    <div class="d-grid gap-2 mt-3">
+
+                        <a href="konfirmasi.php?id=<?php echo $data['id_pesanan']; ?>"
+                        class="btn btn-success btn-sm">
+                            ✅ Konfirmasi
+                        </a>
+
+                        <a href="batalkan.php?id=<?php echo $data['id_pesanan']; ?>"
+                        class="btn btn-warning btn-sm">
+                            ❌ Batalkan
+                        </a>
+
+                        <a href="edit_pesanan.php?id=<?php echo $data['id_pesanan']; ?>"
+                        class="btn btn-primary btn-sm">
+                            ✏️ Edit Pesanan
+                        </a>
+
+                        <a href="hapus_data.php?id=<?php echo $data['id_pesanan']; ?>"
+                        onclick="return confirm('Yakin ingin menghapus pesanan ini?')"
+                        class="btn btn-danger btn-sm">
+                            🗑 Hapus Pesanan
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
         </div>
 
-        <div class="mt-3 text-end">
-            <a href="form.php" class="btn btn-success">
-                + Tambah Pemesanan
-            </a>
-
-            <a href="index.php" class="btn btn-secondary">
-                Home
-            </a>
-        </div>
+    <?php } ?>
 
     </div>
 </div>
